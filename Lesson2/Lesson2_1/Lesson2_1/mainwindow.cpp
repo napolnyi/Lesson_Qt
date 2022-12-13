@@ -13,3 +13,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_plainTextEdit_textChanged()
+{
+    text = ui->plainTextEdit->toPlainText();
+
+    ui->plainTextEdit->QPlainTextEdit::setPlainText("text");
+
+}
