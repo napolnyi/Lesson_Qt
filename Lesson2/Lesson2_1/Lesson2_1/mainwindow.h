@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 
+
 #include "parsetext.h"
 
 QT_BEGIN_NAMESPACE
@@ -18,11 +19,13 @@ public:
     ~MainWindow();
 
 private slots:
+
     void on_plainTextEdit_textChanged();
 
 private:
     Ui::MainWindow *ui;
     ParseText *parseText;
     QString text;
+
 };
 #endif // MAINWINDOW_H

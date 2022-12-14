@@ -1,24 +1,23 @@
 #include "parsetext.h"
 
+
 ParseText::ParseText()
 {
 
 }
 
-QString ParseText::parse(QString text)
+bool ParseText::parse(QString& text)
 {
-    qint32 pos = 0;
-    QChar q = QChar::unicodeVersion(23);
-    q = '20BD';
-    QString parceText;
-    while (true)
+
+    //QChar q = QChar::unicodeVersion(16);
+
+
+    int pos = text.indexOf("руб.");
+    if ( pos != -1)
     {
-        pos = text.indexOf("руб.",pos);
-        if (pos == -1) break;
-        parceText = text.replace(pos,4,q);
-
+        text = text.replace(pos, 4 , \u20BD);
+        return true;
     }
-
-    return parceText;
+    else return false;
 
 }

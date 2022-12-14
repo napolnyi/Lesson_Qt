@@ -8,7 +8,7 @@ class ParseText
 {
 public:
     ParseText();
-    QString parse(QString text);
+    bool parse(QString &text);
 };
 
 #endif // PARSETEXT_H
