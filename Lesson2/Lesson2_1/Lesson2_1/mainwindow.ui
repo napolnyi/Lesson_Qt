@@ -23,6 +23,19 @@
       <height>331</height>
      </rect>
     </property>
+    <property name="plainText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>410</y>
+      <width>291</width>
+      <height>31</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -31,7 +44,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

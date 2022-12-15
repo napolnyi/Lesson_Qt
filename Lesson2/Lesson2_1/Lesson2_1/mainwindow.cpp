@@ -19,9 +19,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_plainTextEdit_textChanged()
 {
     text = ui->plainTextEdit->toPlainText();
+
     while (parseText->parse(text))
     {
+
         ui->plainTextEdit->setPlainText(text);
+
     }
 
 }

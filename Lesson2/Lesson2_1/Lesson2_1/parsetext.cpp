@@ -1,23 +1,30 @@
 #include "parsetext.h"
+#include <QVector>
 
 
 ParseText::ParseText()
 {
+    symbolBefore = new  QVector<QString> {"руб.","евро","промилле","знак авторского права"};
+    symbolAfter = new QVector<QString> {"\u20BD","\u20AC","\u2030","\u00A9"};
 
 }
 
 bool ParseText::parse(QString& text)
 {
 
-    //QChar q = QChar::unicodeVersion(16);
 
 
-    int pos = text.indexOf("руб.");
-    if ( pos != -1)
+    for (int i=0; i<4; i++)
     {
-        text = text.replace(pos, 4 , \u20BD);
-        return true;
-    }
-    else return false;
 
+        int pos = text.indexOf(symbolBefore->at(i));
+        if ( pos != -1)
+        {
+            text = text.replace(pos, 4 , "\u2030");
+            return true;
+
+        }
+    }
+
+    return false;
 }
