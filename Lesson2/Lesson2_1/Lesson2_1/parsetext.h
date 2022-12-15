@@ -2,7 +2,7 @@
 #define PARSETEXT_H
 
 #include <QString>
-#include <QVector>
+#include <QStringList>
 
 class ParseText
 {
@@ -11,9 +11,6 @@ public:
     bool parse(QString& text);
 
 
-private:
-    QVector<QString> *symbolBefore;
-    QVector<QString> *symbolAfter;
 
 };
 
