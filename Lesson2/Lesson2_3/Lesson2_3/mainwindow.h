@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QString>
 #include <QVector>
+#include <QDebug>
 
 
 QT_BEGIN_NAMESPACE

@@ -37,11 +37,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_paintButton_clicked()
 {
-    QItemSelectionModel selection (model);
-    ui->tableView->setSelectionModel(&selection);
-    QModelIndex index1,index2;
-    selection.currentRowChanged(index1,index2);
-    model->setData(index1,Qt::BackgroundColorRole);
+    QItemSelectionModel* selection = ui->tableView->selectionModel();
+    QModelIndexList indexes =selection->selectedIndexes();
+    QModelIndex index;
+    int row;
+    foreach(index, indexes)
+       {
+           row = index.row();
+           for (int j=0; j<model->columnCount();j++)
+           {
+               model->setData(model->index(row,j),QBrush(Qt::red),Qt::BackgroundRole);
+           }
 
+
+       }
 
 }
