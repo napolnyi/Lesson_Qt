@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QDebug>
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -22,6 +23,8 @@ private slots:
     void on_openButton_clicked();
 
     void on_saveButton_clicked();
+
+    void on_helpButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -1,6 +1,10 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+ greaterThan(QT_MAJOR_VERSION, 4) {
+        QT += widgets
+        DEFINES += HAVE_QT5
+    }
 
 CONFIG += c++11
 
@@ -17,6 +21,8 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
+
+RESOURCES += help.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

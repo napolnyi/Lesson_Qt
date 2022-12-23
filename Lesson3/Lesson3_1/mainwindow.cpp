@@ -51,3 +51,13 @@ void MainWindow::on_saveButton_clicked()
 
     }
 }
+
+void MainWindow::on_helpButton_clicked()
+{
+    QFile file(":/help.txt");
+    if (file.open(QFile::ReadOnly)){
+        QByteArray byteArray = file.readAll();
+        ui->plainTextEdit->setPlainText(tr(byteArray.data()));
+        file.close();
+    }
+}
