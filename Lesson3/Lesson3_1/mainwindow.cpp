@@ -27,6 +27,8 @@ void MainWindow::on_openButton_clicked()
             if (file.open(QFile::ReadOnly | QFile::ExistingOnly)){
                 QTextStream stream(&file);
                 ui->plainTextEdit->setPlainText(stream.readAll());
+                if (ui->onlyReadCheckBox->isChecked())ui->plainTextEdit->setReadOnly(true);
+                else ui->plainTextEdit->setReadOnly(false);
                 file.close();
             }
         }
@@ -55,9 +57,10 @@ void MainWindow::on_saveButton_clicked()
 void MainWindow::on_helpButton_clicked()
 {
     QFile file(":/help.txt");
-    if (file.open(QFile::ReadOnly)){
-        QByteArray byteArray = file.readAll();
-        ui->plainTextEdit->setPlainText(tr(byteArray.data()));
+    if (file.open(QFile::ReadOnly | QFile::ExistingOnly)){
+        QTextStream stream(&file);
+        ui->plainTextEdit->setPlainText(stream.readAll());
         file.close();
     }
 }
+

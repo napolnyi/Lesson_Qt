@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
-    <height>606</height>
+    <width>701</width>
+    <height>658</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,39 +17,25 @@
    <widget class="QPlainTextEdit" name="plainTextEdit">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>20</y>
-      <width>591</width>
-      <height>451</height>
+      <width>681</width>
+      <height>481</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>479</y>
-      <width>591</width>
-      <height>81</height>
+      <x>10</x>
+      <y>510</y>
+      <width>681</width>
+      <height>104</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="saveButton">
-         <property name="text">
-          <string>Сохранить</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="helpButton">
-         <property name="text">
-          <string>Справка</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="openButton">
          <property name="text">
@@ -57,7 +43,34 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QCheckBox" name="onlyReadCheckBox">
+         <property name="text">
+          <string>Открыть только для чтения</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Сохранить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="helpButton">
+       <property name="text">
+        <string>Справка</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -67,7 +80,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>630</width>
+     <width>701</width>
      <height>20</height>
     </rect>
    </property>
