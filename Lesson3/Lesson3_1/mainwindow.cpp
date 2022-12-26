@@ -1,11 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QApplication>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -56,7 +58,7 @@ void MainWindow::on_saveButton_clicked()
 
 void MainWindow::on_helpButton_clicked()
 {
-    QFile file(":/help.txt");
+    QFile file(":/hlp/help.txt");
     if (file.open(QFile::ReadOnly | QFile::ExistingOnly)){
         QTextStream stream(&file);
         ui->plainTextEdit->setPlainText(stream.readAll());
@@ -64,3 +66,18 @@ void MainWindow::on_helpButton_clicked()
     }
 }
 
+
+
+void MainWindow::on_translationCheckBox_clicked()
+{
+    if (ui->translationCheckBox->isChecked())
+    {
+        qDebug() << "2";
+        translator.load(":/tr/QtLanguage_ru.qm");
+        qApp->installTranslator(&translator);
+
+
+        qDebug() << "3";
+
+    }
+}

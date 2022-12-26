@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Text editor</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPlainTextEdit" name="plainTextEdit">
@@ -39,14 +39,14 @@
        <item>
         <widget class="QPushButton" name="openButton">
          <property name="text">
-          <string>Открыть</string>
+          <string>Open</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QCheckBox" name="onlyReadCheckBox">
          <property name="text">
-          <string>Открыть только для чтения</string>
+          <string>Open read only </string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -56,19 +56,29 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QCheckBox" name="translationCheckBox">
+         <property name="text">
+          <string>Russian</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
       <widget class="QPushButton" name="saveButton">
        <property name="text">
-        <string>Сохранить</string>
+        <string>Save</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="helpButton">
        <property name="text">
-        <string>Справка</string>
+        <string>Help</string>
        </property>
       </widget>
      </item>

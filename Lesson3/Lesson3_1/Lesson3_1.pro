@@ -28,3 +28,6 @@ RESOURCES += help.qrc
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+TRANSLATIONS +=QtLanguage_ru.ts
+CODECFORSRC = UTF-8
