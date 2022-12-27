@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QTranslator>
+#include <QKeyEvent>
 
 
 
@@ -30,9 +31,17 @@ private slots:
 
     void on_translationCheckBox_clicked();
 
+
+protected:
+    virtual void keyPressEvent(QKeyEvent* event);
+
+
+
 private:
     Ui::MainWindow *ui;
     QTranslator translator;
+    void saveAsFile();
+    QList<Qt::Key> lst;
 
 
 };

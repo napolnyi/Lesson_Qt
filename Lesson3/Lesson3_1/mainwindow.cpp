@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
 }
 
 MainWindow::~MainWindow()
@@ -40,20 +41,7 @@ void MainWindow::on_openButton_clicked()
 
 void MainWindow::on_saveButton_clicked()
 {
-    QString filename = QFileDialog::getSaveFileName(this,"Сохранение файла",QDir::currentPath(),"(*.txt);;(*.bin)");
-    if (filename.length()){
-        int index = filename.indexOf(".txt");
-        if (index != -1 && filename.length()-4 == index ){
-
-            QFile file(filename);
-            if (file.open(QFile::ReadWrite | QFile::NewOnly)){
-                QTextStream stream(&file);
-                stream << ui->plainTextEdit->toPlainText();
-                file.close();
-            }
-        }
-
-    }
+    saveAsFile();
 }
 
 void MainWindow::on_helpButton_clicked()
@@ -72,12 +60,78 @@ void MainWindow::on_translationCheckBox_clicked()
 {
     if (ui->translationCheckBox->isChecked())
     {
-        qDebug() << "2";
+
         translator.load(":/tr/QtLanguage_ru.qm");
         qApp->installTranslator(&translator);
+        ui->retranslateUi(this);
+
+    }
+    else {
+
+        translator.load(":/tr/QtLanguage_en.qm");
+        qApp->installTranslator(&translator);
+        ui->retranslateUi(this);
+    }
+
+}
 
 
-        qDebug() << "3";
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+
+    switch (event->key()) {
+
+    case Qt::Key_Control:
+        lst.push_front(Qt::Key_Control);
+        break;
+
+    case Qt::Key_S:
+        lst.push_back(Qt::Key_S);
+        break;
+
+    case Qt::Key_N:
+        lst.push_back(Qt::Key_N);
+        break;
+
+    case Qt::Key_Q:
+        lst.push_back(Qt::Key_Q);
+        break;
+    }
+
+    if (lst.first() == Qt::Key_Control){
+
+        for (int i = 1; i<lst.length(); i++) {
+            if (lst.at(i) == Qt::Key_S) {
+                lst.clear();
+                saveAsFile();
+            }
+            else if (lst.at(i) == Qt::Key_N){
+                lst.clear();
+                ui->plainTextEdit->clear();
+            }
+            else if (lst.at(i) == Qt::Key_Q){
+                qApp->quit();
+            }
+        }
+    }
+}
+
+
+void MainWindow::saveAsFile()
+{
+    QString filename = QFileDialog::getSaveFileName(this,"Сохранение файла",QDir::currentPath(),"(*.txt);;(*.bin)");
+    if (filename.length()){
+        int index = filename.indexOf(".txt");
+        if (index != -1 && filename.length()-4 == index ){
+
+            QFile file(filename);
+            if (file.open(QFile::ReadWrite | QFile::NewOnly)){
+                QTextStream stream(&file);
+                stream << ui->plainTextEdit->toPlainText();
+                file.close();
+            }
+        }
 
     }
 }
+

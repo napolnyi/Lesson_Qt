@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Text editor</string>
   </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPlainTextEdit" name="plainTextEdit">
     <property name="geometry">
@@ -62,7 +65,7 @@
           <string>Russian</string>
          </property>
          <property name="checked">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
