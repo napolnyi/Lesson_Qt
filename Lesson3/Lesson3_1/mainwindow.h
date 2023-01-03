@@ -32,8 +32,10 @@ private slots:
     void on_translationCheckBox_clicked();
 
 
+    void on_styleCheckBox_clicked();
+
 protected:
-    virtual void keyPressEvent(QKeyEvent* event);
+    void keyPressEvent(QKeyEvent* event) override;
 
 
 

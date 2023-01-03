@@ -135,3 +135,19 @@ void MainWindow::saveAsFile()
     }
 }
 
+
+void MainWindow::on_styleCheckBox_clicked()
+{
+
+    if(ui->styleCheckBox->isChecked()){
+
+        this->setStyleSheet("QMainWindow{background-color:gray}"
+                            "QPushButton {background-color:gray; color:blue}"
+                            "QPlainTextEdit {background-color:black; color:white}"
+                            "QCheckBox {color:blue}"
+                            );
+    }
+    else {
+        this->setStyleSheet("QMainWindow{background-color:white} ");
+    }
+}
