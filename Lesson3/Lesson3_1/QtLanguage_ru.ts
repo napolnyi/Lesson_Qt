@@ -9,32 +9,37 @@
         <translation>Текстовый редактор</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="45"/>
+        <location filename="mainwindow.ui" line="57"/>
         <source>Open</source>
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="52"/>
+        <location filename="mainwindow.ui" line="64"/>
+        <source>Open read only</source>
+        <translation>Открыть только для чтения</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="71"/>
         <source>Open read only </source>
         <translation>Открыть только для чтения</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="65"/>
+        <location filename="mainwindow.ui" line="87"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="75"/>
+        <location filename="mainwindow.ui" line="97"/>
         <source>Dark style</source>
         <translation>Темный стиль</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="84"/>
+        <location filename="mainwindow.ui" line="106"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="91"/>
+        <location filename="mainwindow.ui" line="113"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>

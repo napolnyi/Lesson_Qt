@@ -59,18 +59,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="onlyReadCheckBox">
+        <widget class="QPushButton" name="openReadOnlyButton">
          <property name="text">
-          <string>Open read only </string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <property name="tristate">
-          <bool>false</bool>
+          <string>Open read only</string>
          </property>
         </widget>
        </item>

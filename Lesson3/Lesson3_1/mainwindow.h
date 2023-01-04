@@ -34,6 +34,8 @@ private slots:
 
     void on_styleCheckBox_clicked();
 
+    void on_openReadOnlyButton_clicked();
+
 protected:
     void keyPressEvent(QKeyEvent* event) override;
 
@@ -43,7 +45,8 @@ private:
     Ui::MainWindow *ui;
     QTranslator translator;
     void saveAsFile();
-    QList<Qt::Key> lst;
+    void openFile(bool readOnly);
+
 
 
 };
