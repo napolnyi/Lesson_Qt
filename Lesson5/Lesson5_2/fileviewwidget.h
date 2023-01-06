@@ -4,10 +4,10 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QTreeView>
-#include <QComboBox>
-#include <QPushButton>
-#include <QStandardItemModel>
-#include <QApplication>
+#include <QFileSystemModel>
+#include <QLineEdit>
+#include <QLabel>
+
 
 
 class FileViewWidget : public QWidget
@@ -15,22 +15,19 @@ class FileViewWidget : public QWidget
     Q_OBJECT
 
 public:
-    FileViewWidget(QWidget *parent = nullptr);
-    QStandardItemModel *getCurrentModel() {
-        return model;
-    }
-    void rebuildModel(QString str);
-    void setNewModel(QStandardItemModel *newmodel);
+    explicit FileViewWidget(QWidget *parent = nullptr);
+
 
 private:
     QGridLayout *gridLay;
     QTreeView *tree;
-    QComboBox *diskSelBox;
-    QStandardItemModel *model;
+    QFileSystemModel *model;
     QString currentPath;
+    QLineEdit *path;
+    QLabel *namePath;
 
 private slots:
-    void chdDisk(int index);
+    void renamePath();
 
 };
 
