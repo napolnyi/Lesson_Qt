@@ -7,12 +7,25 @@
 #include <QDebug>
 #include <QTranslator>
 #include <QKeyEvent>
+#include <QMenuBar>
+#include <QApplication>
+#include <QAction>
+#include <QStyle>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QMdiArea>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QPlainTextEdit>
+#include <QMdiSubWindow>
+#include <QWidget>
+#include <QGridLayout>
 
 
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+//QT_BEGIN_NAMESPACE
+//namespace Ui { class MainWindow; }
+//QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -31,10 +44,11 @@ private slots:
 
     void on_translationCheckBox_clicked();
 
-
     void on_styleCheckBox_clicked();
 
     void on_openReadOnlyButton_clicked();
+
+    void on_printButton_clicked();
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -42,11 +56,43 @@ protected:
 
 
 private:
-    Ui::MainWindow *ui;
+    //Ui::MainWindow *ui;
     QTranslator translator;
+
     void saveAsFile();
     void openFile(bool readOnly);
+    void addMenu();
+    void delMenu();
+    void activWindow();
 
+    QGridLayout *layout;
+    QMdiArea *mdiArea;
+
+    QCheckBox *translationCheckBox;
+    QCheckBox *styleCheckBox;
+    QPlainTextEdit *plainTextEdit;
+
+    QPushButton *openButton;
+    QPushButton *openOnlyReadButton;
+    QPushButton *saveButton;
+    QPushButton *helpButton;
+    QPushButton *printButton;
+
+    QMenu *fileMenu;
+    QAction *openAction;
+    QAction *openReadAction;
+    QAction *saveAction;
+    QAction *exitAction;
+
+    QMenu *settingsMenu;
+    QAction *styleAction;
+    QAction *languageRus;
+
+    QMenu *printMenu;
+    QAction *printAction;
+
+    QMenu *helpMenu;
+    QAction *helpAction;
 
 
 };
