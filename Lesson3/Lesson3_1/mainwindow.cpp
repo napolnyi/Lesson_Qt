@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     //ui->setupUi(this);
 
-
     mdiArea = new QMdiArea(this);
     QWidget *centralW = new QWidget(this);
     setCentralWidget(centralW);
@@ -20,26 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     addMenu();
 
-    connect(openButton, SIGNAL(clicked()), this, SLOT(on_openButton_clicked()));
-    connect(openOnlyReadButton, SIGNAL(clicked()), this, SLOT(on_openReadOnlyButton_clicked()));
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(on_saveButton_clicked()));
-    connect(helpButton, SIGNAL(clicked()), this, SLOT(on_helpButton_clicked()));
-    connect(printButton, SIGNAL(clicked()), this, SLOT(on_printButton_clicked()));
-    connect(translationCheckBox, SIGNAL(stateChanged(int)), this, SLOT(on_translationCheckBox_clicked()));
-    connect(styleCheckBox, SIGNAL(stateChanged(int)), this, SLOT(on_styleCheckBox_clicked()));
-    connect(openAction, SIGNAL(triggered()), this, SLOT(on_openButton_clicked()));
-    connect(openReadAction, SIGNAL(triggered()), this, SLOT(on_openReadOnlyButton_clicked()));
-    connect(saveAction, SIGNAL(triggered()), this, SLOT(on_saveButton_clicked()));
-    connect(exitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(styleAction, SIGNAL(toggled(bool)), this, SLOT(on_styleCheckBox_clicked()));
-    connect(languageRus, SIGNAL(toggled(bool)), this, SLOT(on_translationCheckBox_clicked()));
-    connect(printAction, SIGNAL(triggered()), this, SLOT(on_printButton_clicked()));
-    connect(helpAction, SIGNAL(triggered()), this, SLOT(on_helpButton_clicked()));
-
     plainTextEdit = new QPlainTextEdit(this);
     mdiArea->addSubWindow(plainTextEdit);
     mdiArea->setViewMode(QMdiArea::TabbedView);
-
 
 }
 
@@ -79,30 +61,27 @@ void MainWindow::on_helpButton_clicked()
 void MainWindow::on_translationCheckBox_clicked()
 {
     qDebug()<<"111";
-    if (translationCheckBox->isChecked())
+    if (sender() == languageRusAction)
     {
         qDebug()<<"222";
         translator.load(":/tr/QtLanguage_ru.qm");
         qApp->installTranslator(&translator);
-        qDebug()<<"333";
-        delMenu();
-        addMenu();
+        qDebug()<<"000";
+
     }
-    else {
-        qDebug()<<"444";
+    else if (sender() == languageEngAction) {
+        qDebug()<<"333";
+        qApp->removeTranslator(&translator);
         translator.load(":/tr/QtLanguage_en.qm");
         qApp->installTranslator(&translator);
-        delMenu();
-        addMenu();
+        qDebug()<<"555";
+
     }
-//    if (sender() == languageRus){
-//      if (languageRus->isChecked()) translationCheckBox->setChecked(true);
-//      else translationCheckBox->setChecked(false);
-//    }
-//    else{
-//      if (translationCheckBox->isChecked()) languageRus->setChecked(true);
-//      else languageRus->setChecked(false);
-//    }
+    qDebug()<<"444";
+    delMenu();
+    qDebug()<<"777";
+    addMenu();
+    qDebug()<<"888";
 
 }
 
@@ -166,12 +145,29 @@ void MainWindow::openFile(bool readOnly)
     }
 }
 
+
 void MainWindow::delMenu()
 {
-    fileMenu->deleteLater();
-    settingsMenu->deleteLater();
-    printMenu->deleteLater();
-    helpMenu->deleteLater();
+
+
+    fileMenu->removeAction(openAction);
+    fileMenu->removeAction(openReadAction);
+    fileMenu->removeAction(saveAction);
+    fileMenu->removeAction(exitAction);
+    fileMenu->QMenu::~QMenu();
+
+    settingsMenu->removeAction(styleAction);
+    languageAction->removeAction(languageRusAction);
+    languageAction->removeAction(languageEngAction);
+    languageAction->QMenu::~QMenu();
+    settingsMenu->QMenu::~QMenu();
+
+    printMenu->removeAction(printAction);
+    printMenu->QMenu::~QMenu();
+
+    helpMenu->removeAction(helpAction);
+    printMenu->QMenu::~QMenu();
+
 }
 
 void MainWindow::activWindow()
@@ -182,58 +178,69 @@ void MainWindow::activWindow()
 
 void MainWindow::addMenu()
 {
+
     openButton = new QPushButton(tr("Open"),this);
     layout->addWidget(openButton,11,0,2,2);
+    connect(openButton, SIGNAL(clicked()), this, SLOT(on_openButton_clicked()));
+
 
     openOnlyReadButton = new QPushButton(tr("Open only read"),this);
     layout->addWidget(openOnlyReadButton,11,2,2,2);
+    connect(openOnlyReadButton, SIGNAL(clicked()), this, SLOT(on_openReadOnlyButton_clicked()));
 
     saveButton = new QPushButton(tr("Save"),this);
     layout->addWidget(saveButton,11,4,2,2);
+    connect(saveButton, SIGNAL(clicked()), this, SLOT(on_saveButton_clicked()));
 
     helpButton = new QPushButton(tr("Help"),this);
     layout->addWidget(helpButton,11,6,2,2);
+    connect(helpButton, SIGNAL(clicked()), this, SLOT(on_helpButton_clicked()));
 
     printButton = new QPushButton(tr("Print"),this);
     layout->addWidget(printButton,11,8,2,2);
-
-    translationCheckBox = new QCheckBox(tr("Russian"),this);
-    layout->addWidget(translationCheckBox,13,0,1,2);
-
-    styleCheckBox = new QCheckBox(tr("Dark style"),this);
-    layout->addWidget(styleCheckBox,14,0,1,2);
+    connect(printButton, SIGNAL(clicked()), this, SLOT(on_printButton_clicked()));
 
     fileMenu = menuBar()->addMenu(tr("File"));
     openAction = fileMenu->addAction(tr("Open"));
     openAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOpenButton)));
+    connect(openAction, SIGNAL(triggered()), this, SLOT(on_openButton_clicked()));
 
     openReadAction = fileMenu->addAction(tr("Open only Read"));
     openReadAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_DirClosedIcon)));
+    connect(openReadAction, SIGNAL(triggered()), this, SLOT(on_openReadOnlyButton_clicked()));
 
     saveAction = fileMenu->addAction(tr("Save as"));
     saveAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_DialogSaveButton)));
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(on_saveButton_clicked()));
 
     fileMenu->addSeparator();
     exitAction = fileMenu->addAction(tr("Exit"));
     exitAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCloseButton)));
+    connect(exitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     settingsMenu = menuBar()->addMenu(tr("Settings"));
     styleAction = settingsMenu->addAction(tr("Dark style"));
     styleAction->setCheckable(true);
     styleAction->setChecked(false);
+    connect(styleAction, SIGNAL(toggled(bool)), this, SLOT(on_styleCheckBox_clicked()));
 
-    languageRus = settingsMenu->addAction(tr("Russian"));
-    languageRus->setCheckable(true);
-    languageRus->setChecked(false);
+    languageAction = settingsMenu->addMenu(tr("Language"));
+    languageRusAction = languageAction->addAction("Русский");
+    languageEngAction = languageAction->addAction("English");
+
+    connect(languageRusAction, SIGNAL(triggered()), this, SLOT(on_translationCheckBox_clicked()));
+    connect(languageEngAction, SIGNAL(triggered()), this, SLOT(on_translationCheckBox_clicked()));
 
     printMenu = new QMenu(this);
     printMenu = menuBar()->addMenu(tr("Print"));
     printAction = printMenu->addAction(tr("Print"));
     printAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_DriveDVDIcon)));
+    connect(printAction, SIGNAL(triggered()), this, SLOT(on_printButton_clicked()));
 
     helpMenu = menuBar()->addMenu(tr("Help"));
     helpAction = helpMenu->addAction(tr("Help"));
     helpAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_MessageBoxQuestion)));
+    connect(helpAction, SIGNAL(triggered()), this, SLOT(on_helpButton_clicked()));
 
 }
 
@@ -241,7 +248,7 @@ void MainWindow::addMenu()
 void MainWindow::on_styleCheckBox_clicked()
 {
 
-    if(styleCheckBox->isChecked()){
+    if(styleAction->isChecked()){
 
         this->setStyleSheet("QMainWindow{background-color:gray}"
                             "QPushButton {background-color:gray; color:blue}"
@@ -251,15 +258,6 @@ void MainWindow::on_styleCheckBox_clicked()
     }
     else {
         this->setStyleSheet("QMainWindow{background-color:white} ");
-    }
-
-    if (sender() == styleAction){
-      if (styleAction->isChecked()) styleCheckBox->setChecked(true);
-      else styleCheckBox->setChecked(false);
-    }
-    else{
-      if (styleCheckBox->isChecked()) styleAction->setChecked(true);
-      else styleAction->setChecked(false);
     }
 }
 

@@ -15,7 +15,6 @@
 #include <QPrintDialog>
 #include <QMdiArea>
 #include <QPushButton>
-#include <QCheckBox>
 #include <QPlainTextEdit>
 #include <QMdiSubWindow>
 #include <QWidget>
@@ -68,8 +67,6 @@ private:
     QGridLayout *layout;
     QMdiArea *mdiArea;
 
-    QCheckBox *translationCheckBox;
-    QCheckBox *styleCheckBox;
     QPlainTextEdit *plainTextEdit;
 
     QPushButton *openButton;
@@ -86,7 +83,10 @@ private:
 
     QMenu *settingsMenu;
     QAction *styleAction;
-    QAction *languageRus;
+
+    QMenu *languageAction;
+    QAction *languageRusAction;
+    QAction *languageEngAction;
 
     QMenu *printMenu;
     QAction *printAction;
