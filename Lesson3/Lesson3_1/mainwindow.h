@@ -63,6 +63,7 @@ private:
     void addMenu();
     void delMenu();
     void activWindow();
+    QString findNameFile(QString str);
 
     QGridLayout *layout;
     QMdiArea *mdiArea;

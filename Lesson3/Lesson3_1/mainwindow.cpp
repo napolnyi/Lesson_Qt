@@ -60,36 +60,22 @@ void MainWindow::on_helpButton_clicked()
 
 void MainWindow::on_translationCheckBox_clicked()
 {
-    qDebug()<<"111";
     if (sender() == languageRusAction)
     {
-        qDebug()<<"222";
         translator.load(":/tr/QtLanguage_ru.qm");
         qApp->installTranslator(&translator);
-        qDebug()<<"000";
-
     }
     else if (sender() == languageEngAction) {
-        qDebug()<<"333";
-        qApp->removeTranslator(&translator);
         translator.load(":/tr/QtLanguage_en.qm");
         qApp->installTranslator(&translator);
-        qDebug()<<"555";
-
     }
-    qDebug()<<"444";
     delMenu();
-    qDebug()<<"777";
     addMenu();
-    qDebug()<<"888";
-
 }
 
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-
-
      if ((event->key() == Qt::Key_S) && (event->modifiers() | Qt::Key_Control)) {
          saveAsFile();
          }
@@ -100,7 +86,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
      else if ((event->key() == Qt::Key_Q) && (event->modifiers() | Qt::Key_Control)){
          qApp->quit();
          }
-
 }
 
 
@@ -116,10 +101,10 @@ void MainWindow::saveAsFile()
             if (file.open(QFile::ReadWrite /*| QFile::NewOnly*/)){
                 QTextStream stream(&file);
                 stream << plainTextEdit->toPlainText();
+                mdiArea->currentSubWindow()->setWindowTitle(findNameFile(filename));
                 file.close();
             }
         }
-
     }
 }
 
@@ -134,6 +119,7 @@ void MainWindow::openFile(bool readOnly)
             if (file.open(QFile::ReadOnly | QFile::ExistingOnly)){
                 plainTextEdit = new QPlainTextEdit(this);
                 mdiArea->addSubWindow(plainTextEdit);
+                mdiArea->currentSubWindow()->setWindowTitle(findNameFile(filename));
                 QTextStream stream(&file);
                 plainTextEdit->setPlainText(stream.readAll());
                 if (readOnly) plainTextEdit->setReadOnly(true);
@@ -141,39 +127,28 @@ void MainWindow::openFile(bool readOnly)
                 file.close();
             }
         }
-
     }
 }
 
 
 void MainWindow::delMenu()
 {
-
-
-    fileMenu->removeAction(openAction);
-    fileMenu->removeAction(openReadAction);
-    fileMenu->removeAction(saveAction);
-    fileMenu->removeAction(exitAction);
-    fileMenu->QMenu::~QMenu();
-
-    settingsMenu->removeAction(styleAction);
-    languageAction->removeAction(languageRusAction);
-    languageAction->removeAction(languageEngAction);
-    languageAction->QMenu::~QMenu();
-    settingsMenu->QMenu::~QMenu();
-
-    printMenu->removeAction(printAction);
-    printMenu->QMenu::~QMenu();
-
-    helpMenu->removeAction(helpAction);
-    printMenu->QMenu::~QMenu();
-
+    fileMenu->deleteLater();
+    settingsMenu->deleteLater();
+    printMenu->deleteLater();
+    helpMenu->deleteLater();
 }
 
 void MainWindow::activWindow()
 {
     QWidget *wdg = mdiArea->activeSubWindow()->widget();
     plainTextEdit = reinterpret_cast<QPlainTextEdit*>(wdg);
+}
+
+QString MainWindow::findNameFile(QString str)
+{
+    int index_1 = str.lastIndexOf("/")+1;
+    return str.mid(index_1,str.length());
 }
 
 void MainWindow::addMenu()
