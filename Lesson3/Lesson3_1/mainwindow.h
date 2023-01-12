@@ -19,6 +19,10 @@
 #include <QMdiSubWindow>
 #include <QWidget>
 #include <QGridLayout>
+#include <QToolBar>
+#include <QToolButton>
+#include <QFontDialog>
+#include <QFont>
 
 
 
@@ -49,6 +53,12 @@ private slots:
 
     void on_printButton_clicked();
 
+    void copyProperties();
+
+    void pasteProperties();
+
+    void fontProperties();
+
 protected:
     void keyPressEvent(QKeyEvent* event) override;
 
@@ -64,6 +74,7 @@ private:
     void delMenu();
     void activWindow();
     QString findNameFile(QString str);
+
 
     QGridLayout *layout;
     QMdiArea *mdiArea;
@@ -94,6 +105,18 @@ private:
 
     QMenu *helpMenu;
     QAction *helpAction;
+
+    QToolBar *formatToolBar;
+    QAction *copyPropirtiesAction;
+    QAction *pastePropirtiesAction;
+    QAction *fontPropirtiesAction;
+
+    QIcon copyIcon;
+    QIcon pasteIcon;
+    QIcon fontIcon;
+
+     QTextCharFormat *format = nullptr;
+
 
 
 };

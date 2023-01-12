@@ -17,6 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
     layout->addWidget(mdiArea,1,0,10,10);
     mdiArea->setMaximumSize(700,600);
 
+    formatToolBar = new QToolBar;
+    formatToolBar = addToolBar(tr("Property"));
+    copyIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-copy.png"));
+    pasteIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-paste.png"));
+    fontIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-font.png"));
+
     addMenu();
 
     plainTextEdit = new QPlainTextEdit(this);
@@ -137,6 +143,8 @@ void MainWindow::delMenu()
     settingsMenu->deleteLater();
     printMenu->deleteLater();
     helpMenu->deleteLater();
+    formatToolBar->removeAction(copyPropirtiesAction);
+    formatToolBar->removeAction(pastePropirtiesAction);
 }
 
 void MainWindow::activWindow()
@@ -157,7 +165,6 @@ void MainWindow::addMenu()
     openButton = new QPushButton(tr("Open"),this);
     layout->addWidget(openButton,11,0,2,2);
     connect(openButton, SIGNAL(clicked()), this, SLOT(on_openButton_clicked()));
-
 
     openOnlyReadButton = new QPushButton(tr("Open only read"),this);
     layout->addWidget(openOnlyReadButton,11,2,2,2);
@@ -217,6 +224,16 @@ void MainWindow::addMenu()
     helpAction->setIcon(QIcon(QApplication::style()->standardIcon(QStyle::SP_MessageBoxQuestion)));
     connect(helpAction, SIGNAL(triggered()), this, SLOT(on_helpButton_clicked()));
 
+
+    copyPropirtiesAction = formatToolBar->addAction(copyIcon,tr("Copy properties"));
+    connect(copyPropirtiesAction,SIGNAL(triggered()),this, SLOT (copyProperties()));
+
+    pastePropirtiesAction = formatToolBar->addAction(pasteIcon,tr("Paste properties"));
+    connect(pastePropirtiesAction,SIGNAL(triggered()),this, SLOT (pasteProperties()));
+
+    fontPropirtiesAction = formatToolBar->addAction(fontIcon,tr("Font properties"));
+    connect(fontPropirtiesAction,SIGNAL(triggered()),this, SLOT (fontProperties()));
+
 }
 
 
@@ -245,4 +262,37 @@ void MainWindow::on_printButton_clicked()
     dlg.setWindowTitle(tr("Print"));
     if (dlg.exec() != QDialog::Accepted) return;
     plainTextEdit->print(&printer);
+}
+
+void MainWindow::copyProperties()
+{
+    qDebug()<<"copyProperties";
+    activWindow();
+    *format = plainTextEdit->textCursor().charFormat();
+
+}
+
+void MainWindow::pasteProperties()
+{
+    qDebug()<<"pasteProperties";
+    activWindow();
+    if (format != nullptr) plainTextEdit->textCursor().setCharFormat(*format);
+
+}
+
+void MainWindow::fontProperties()
+{
+    qDebug()<<"fontProperties";
+    activWindow();
+    QFont font = plainTextEdit->textCursor().charFormat().font();
+    QFontDialog fntDlg(font,this);
+    bool b[] = {true};
+    font = fntDlg.getFont(b);
+    qDebug()<<"!!";
+    if (b[0]){
+        QTextCharFormat fmt;
+        fmt.setFont(font);
+        plainTextEdit->textCursor().setCharFormat(fmt);
+    }
+
 }
