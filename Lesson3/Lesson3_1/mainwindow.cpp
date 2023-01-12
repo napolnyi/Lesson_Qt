@@ -22,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
     copyIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-copy.png"));
     pasteIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-paste.png"));
     fontIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-font.png"));
+    alignLeftIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-align-left.png"));
+    alignRightIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-align-right.png"));
+    alignCenterlIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-align-center.png"));
 
     addMenu();
 
@@ -145,6 +148,10 @@ void MainWindow::delMenu()
     helpMenu->deleteLater();
     formatToolBar->removeAction(copyPropirtiesAction);
     formatToolBar->removeAction(pastePropirtiesAction);
+    formatToolBar->removeAction(fontPropirtiesAction);
+    formatToolBar->removeAction(alignLeftAction);
+    formatToolBar->removeAction(alignCenterAction);
+    formatToolBar->removeAction(alignRightAction);
 }
 
 void MainWindow::activWindow()
@@ -234,6 +241,17 @@ void MainWindow::addMenu()
     fontPropirtiesAction = formatToolBar->addAction(fontIcon,tr("Font properties"));
     connect(fontPropirtiesAction,SIGNAL(triggered()),this, SLOT (fontProperties()));
 
+    formatToolBar->addSeparator();
+
+    alignLeftAction = formatToolBar->addAction(alignLeftIcon,tr("Align left"));
+    connect(alignLeftAction,SIGNAL(triggered()),this, SLOT (alignLeft()));
+
+    alignCenterAction = formatToolBar->addAction(alignCenterlIcon,tr("Align center"));
+    connect(alignCenterAction,SIGNAL(triggered()),this, SLOT (alignCenter()));
+
+    alignRightAction = formatToolBar->addAction(alignRightIcon,tr("Align right"));
+    connect(alignRightAction,SIGNAL(triggered()),this, SLOT (alignRight()));
+
 }
 
 
@@ -266,33 +284,64 @@ void MainWindow::on_printButton_clicked()
 
 void MainWindow::copyProperties()
 {
-    qDebug()<<"copyProperties";
     activWindow();
-    *format = plainTextEdit->textCursor().charFormat();
-
+    format = plainTextEdit->textCursor().charFormat();
 }
 
 void MainWindow::pasteProperties()
 {
-    qDebug()<<"pasteProperties";
     activWindow();
-    if (format != nullptr) plainTextEdit->textCursor().setCharFormat(*format);
-
+    plainTextEdit->textCursor().setCharFormat(format);
 }
 
 void MainWindow::fontProperties()
 {
-    qDebug()<<"fontProperties";
     activWindow();
     QFont font = plainTextEdit->textCursor().charFormat().font();
     QFontDialog fntDlg(font,this);
     bool b[] = {true};
     font = fntDlg.getFont(b);
-    qDebug()<<"!!";
     if (b[0]){
         QTextCharFormat fmt;
         fmt.setFont(font);
         plainTextEdit->textCursor().setCharFormat(fmt);
     }
+}
 
+void MainWindow::alignLeft()
+{
+    qDebug()<<"alignLeft";
+    activWindow();
+    QTextBlockFormat frm;
+    //frm = plainTextEdit->textCursor().blockFormat();
+    frm.setAlignment(Qt::AlignLeft);
+    plainTextEdit->textCursor().setBlockFormat(frm);
+    plainTextEdit->update();
+
+}
+
+void MainWindow::alignRight()
+{
+    qDebug()<<"alignRight";
+    qDebug()<<plainTextEdit->blockCount();
+    activWindow();
+    plainTextEdit->setLayoutDirection(Qt::LayoutDirectionAuto);
+    QTextBlockFormat frm;
+    //frm = plainTextEdit->textCursor().blockFormat();
+    frm.setAlignment(Qt::AlignRight);
+    plainTextEdit->textCursor().setBlockFormat(frm);
+    plainTextEdit->setLayoutDirection(Qt::RightToLeft);
+
+
+}
+
+void MainWindow::alignCenter()
+{
+    qDebug()<<"alignCenter";
+    activWindow();
+    QTextBlockFormat frm;
+    //frm = plainTextEdit->textCursor().blockFormat();
+    frm.setAlignment(Qt::AlignCenter);
+    plainTextEdit->textCursor().setBlockFormat(frm);
+    plainTextEdit->update();
 }

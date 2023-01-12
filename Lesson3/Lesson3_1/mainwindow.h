@@ -40,24 +40,18 @@ public:
 
 private slots:
     void on_openButton_clicked();
-
     void on_saveButton_clicked();
-
     void on_helpButton_clicked();
-
     void on_translationCheckBox_clicked();
-
     void on_styleCheckBox_clicked();
-
     void on_openReadOnlyButton_clicked();
-
     void on_printButton_clicked();
-
     void copyProperties();
-
     void pasteProperties();
-
     void fontProperties();
+    void alignLeft();
+    void alignRight();
+    void alignCenter();
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -110,12 +104,18 @@ private:
     QAction *copyPropirtiesAction;
     QAction *pastePropirtiesAction;
     QAction *fontPropirtiesAction;
+    QAction *alignLeftAction;
+    QAction *alignRightAction;
+    QAction *alignCenterAction;
 
     QIcon copyIcon;
     QIcon pasteIcon;
     QIcon fontIcon;
+    QIcon alignLeftIcon;
+    QIcon alignRightIcon;
+    QIcon alignCenterlIcon;
 
-     QTextCharFormat *format = nullptr;
+    QTextCharFormat format;
 
 
 
