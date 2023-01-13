@@ -310,38 +310,18 @@ void MainWindow::fontProperties()
 
 void MainWindow::alignLeft()
 {
-    qDebug()<<"alignLeft";
     activWindow();
-    QTextBlockFormat frm;
-    //frm = plainTextEdit->textCursor().blockFormat();
-    frm.setAlignment(Qt::AlignLeft);
-    plainTextEdit->textCursor().setBlockFormat(frm);
-    plainTextEdit->update();
-
+    plainTextEdit->document()->setDefaultTextOption(QTextOption(Qt::AlignLeft));
 }
 
 void MainWindow::alignRight()
 {
-    qDebug()<<"alignRight";
-    qDebug()<<plainTextEdit->blockCount();
     activWindow();
-    plainTextEdit->setLayoutDirection(Qt::LayoutDirectionAuto);
-    QTextBlockFormat frm;
-    //frm = plainTextEdit->textCursor().blockFormat();
-    frm.setAlignment(Qt::AlignRight);
-    plainTextEdit->textCursor().setBlockFormat(frm);
-    plainTextEdit->setLayoutDirection(Qt::RightToLeft);
-
-
+    plainTextEdit->document()->setDefaultTextOption(QTextOption(Qt::AlignRight));
 }
 
 void MainWindow::alignCenter()
 {
-    qDebug()<<"alignCenter";
     activWindow();
-    QTextBlockFormat frm;
-    //frm = plainTextEdit->textCursor().blockFormat();
-    frm.setAlignment(Qt::AlignCenter);
-    plainTextEdit->textCursor().setBlockFormat(frm);
-    plainTextEdit->update();
+    plainTextEdit->document()->setDefaultTextOption(QTextOption(Qt::AlignCenter));
 }
