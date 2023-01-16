@@ -3,9 +3,9 @@
 #include <QApplication>
 #include "mainwindow.h"
 
-BlockScheme::BlockScheme(QObject *parent) : QObject(parent)
+BlockScheme::BlockScheme(QObject *parent,int geo) : QObject(parent)
 {
-    geometry = Geometry::RECTANGLE;
+    geometry = static_cast<Geometry>(geo);
     x = 0;
     y = 0;
     brush.setColor(QColor(rand()%255, rand()%255, rand()%255));
@@ -52,6 +52,7 @@ void BlockScheme::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void BlockScheme::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     qDebug()<<"mouseReleaseEvent";
+
     if(event->button() == Qt::LeftButton){
         moving = false;
         x = bpoint.x();

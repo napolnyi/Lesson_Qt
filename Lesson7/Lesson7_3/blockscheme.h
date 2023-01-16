@@ -11,8 +11,18 @@
 class BlockScheme : public QObject, public QGraphicsItem
 {
     Q_OBJECT
+
+private:
+    enum Geometry {RECTANGLE, ELLIPS, STAR};
+    Geometry geometry;
+    int x, y;
+    QBrush brush;
+    bool moving;
+    QPoint bpoint;
+    int countClick;
+
 public:
-    explicit BlockScheme(QObject *parent = nullptr);
+    explicit BlockScheme(QObject *parent = nullptr, int geo = 0);
     void setBrush(QBrush brush) {this->brush = brush; emit reDraw();}
 
 signals:
@@ -23,14 +33,6 @@ private:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
 
-private:
-    enum Geometry {RECTANGLE, ELLIPS, STAR};
-    Geometry geometry;
-    int x, y;
-    QBrush brush;
-    bool moving;
-    QPoint bpoint;
-    int countClick;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;

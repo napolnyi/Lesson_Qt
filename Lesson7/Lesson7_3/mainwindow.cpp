@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QGraphicsView(parent)
@@ -6,11 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
     srand(clock());
     scene = new QGraphicsScene(this);
     setScene(scene);
-    bscheme = new BlockScheme(this);
-    scene->addItem(bscheme);
+    bscheme.append(new BlockScheme(this,0));
+    scene->addItem(bscheme.back());
 
-    connect(bscheme, SIGNAL(reDraw()), this, SLOT(reDraw()));
-    connect(bscheme, SIGNAL(Draw()), this, SLOT(Draw()));
+    connect(bscheme.back(), SIGNAL(reDraw()), this, SLOT(reDraw()));
+    connect(bscheme.back(), SIGNAL(Draw()), this, SLOT(Draw()));
 
 
 }
@@ -27,14 +28,19 @@ void MainWindow::reDraw()
 
 void MainWindow::randomColor()
 {
-    bscheme->setBrush(QBrush(QColor(rand()%256,rand()%256,rand()%256)));
+    bscheme.back()->setBrush(QBrush(QColor(rand()%256,rand()%256,rand()%256)));
 
 }
 
 void MainWindow::Draw()
 {
-    bscheme2 = new BlockScheme(this);
-    scene->addItem(bscheme2);
+    bscheme.append(new BlockScheme(this,0));
+    scene->addItem(bscheme.back());
+    connect(bscheme.back(), SIGNAL(Draw()), this, SLOT(Draw()));
+
     scene->update();
+    qDebug()<<bscheme.length();
+    qDebug()<<sender();
+    //update();
 }
 

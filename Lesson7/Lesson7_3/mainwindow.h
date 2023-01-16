@@ -7,6 +7,7 @@
 #include <QBrush>
 #include <QVector>
 
+
 #include "blockscheme.h"
 
 
@@ -20,12 +21,14 @@ public:
 
 private:
     QGraphicsScene *scene;
-    BlockScheme *bscheme, *bscheme2;
+    QVector <BlockScheme*> bscheme;
 
 private slots:
     void reDraw();
     void randomColor();
     void Draw();
+
+
 
 };
 #endif // MAINWINDOW_H
