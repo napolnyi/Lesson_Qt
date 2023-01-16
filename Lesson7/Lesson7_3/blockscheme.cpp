@@ -1,25 +1,30 @@
 #include "blockscheme.h"
 #include <QDebug>
-#include <QApplication>
 #include "mainwindow.h"
 
-BlockScheme::BlockScheme(QObject *parent,int geo) : QObject(parent)
+BlockScheme::BlockScheme(QObject *parent,int geo, int xBefor, int yBefor) : QObject(parent)
 {
     geometry = static_cast<Geometry>(geo);
-    x = 0;
-    y = 0;
+    x = xBefor;
+    y = yBefor;
     brush.setColor(QColor(rand()%255, rand()%255, rand()%255));
     brush.setStyle(Qt::BrushStyle::SolidPattern);
     moving = false;
-    setPos(0,0);
-    countClick = 0;
+
 }
 
 void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    qDebug()<<"Painter"<<"geometry"<<geometry;
+    qDebug()<<sender()<<"x"<<x<<"y"<<y;
     painter->setBrush(brush);
     if (geometry == Geometry::RECTANGLE) painter->drawRect(x, y, 200, 100);
     if (geometry == Geometry::ELLIPS) painter->drawEllipse(x, y, 200, 100);
+    QPointF starPoints [10] = {QPointF(x,y-80), QPointF(x+25,y-35), QPointF(x+75,y-25), QPointF(x+40,y+10),
+                               QPointF(x+50,y+60), QPointF(x,y+40), QPointF(x-50,y+60), QPointF(x-40,y+10),
+                               QPointF(x-75,y-25), QPointF(x-25,y-35)
+                               };
+    if (geometry == Geometry::STAR) painter->drawPolygon(starPoints,10);
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
@@ -34,30 +39,19 @@ QRectF BlockScheme::boundingRect() const
 
 void BlockScheme::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    countClick++;
-    qDebug()<<"mousePressEvent";
     if(event->button() == Qt::LeftButton){
         moving = true;
         bpoint = event->pos().toPoint();
     }
-
-    if (countClick == 1) geometry = Geometry::RECTANGLE;
-    else if (countClick == 2) {
-        geometry = Geometry::ELLIPS;
-        countClick = 0;
-    }
-
 }
 
 void BlockScheme::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug()<<"mouseReleaseEvent";
-
     if(event->button() == Qt::LeftButton){
         moving = false;
-        x = bpoint.x();
-        y = bpoint.y();
+        x = bpoint.x();        
+        y = bpoint.y();        
         //emit reDraw();
-        emit Draw();
+        emit Draw(x,y);
     }
 }

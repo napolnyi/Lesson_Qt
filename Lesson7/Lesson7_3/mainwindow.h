@@ -19,16 +19,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private:
     QGraphicsScene *scene;
     QVector <BlockScheme*> bscheme;
 
+
+
 private slots:
     void reDraw();
     void randomColor();
-    void Draw();
-
-
-
+    void Draw(int x, int y);
 };
 #endif // MAINWINDOW_H

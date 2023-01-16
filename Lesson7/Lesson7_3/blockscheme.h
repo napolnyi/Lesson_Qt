@@ -8,6 +8,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 
+
 class BlockScheme : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -18,16 +19,16 @@ private:
     int x, y;
     QBrush brush;
     bool moving;
-    QPoint bpoint;
-    int countClick;
+    QPoint bpoint = {0,0};
+
 
 public:
-    explicit BlockScheme(QObject *parent = nullptr, int geo = 0);
+    explicit BlockScheme(QObject *parent = nullptr, int geo = 0, int xBefor = 0, int yBefor = 0 );
     void setBrush(QBrush brush) {this->brush = brush; emit reDraw();}
 
 signals:
     void reDraw();
-    void Draw();
+    void Draw(int,int);
 
 private:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
