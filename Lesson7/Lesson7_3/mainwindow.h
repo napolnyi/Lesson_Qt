@@ -24,11 +24,10 @@ private:
     QGraphicsScene *scene;
     QVector <BlockScheme*> bscheme;
 
-
-
 private slots:
     void reDraw();
     void randomColor();
     void Draw(int x, int y);
+    void deleteItem(BlockScheme*);
 };
 #endif // MAINWINDOW_H

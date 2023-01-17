@@ -10,13 +10,10 @@ BlockScheme::BlockScheme(QObject *parent,int geo, int xBefor, int yBefor) : QObj
     brush.setColor(QColor(rand()%255, rand()%255, rand()%255));
     brush.setStyle(Qt::BrushStyle::SolidPattern);
     moving = false;
-
 }
 
 void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    qDebug()<<"Painter"<<"geometry"<<geometry;
-    qDebug()<<sender()<<"x"<<x<<"y"<<y;
     painter->setBrush(brush);
     if (geometry == Geometry::RECTANGLE) painter->drawRect(x, y, 200, 100);
     if (geometry == Geometry::ELLIPS) painter->drawEllipse(x, y, 200, 100);
@@ -39,9 +36,13 @@ QRectF BlockScheme::boundingRect() const
 
 void BlockScheme::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(event->button() == Qt::LeftButton){
+    if (event->button() == Qt::LeftButton){
         moving = true;
         bpoint = event->pos().toPoint();
+    }
+    if (event->button() == Qt::RightButton && event->HoverMove){
+        qDebug()<<"Maus" << sender();
+        emit deleteItem(this);
     }
 }
 
@@ -49,9 +50,30 @@ void BlockScheme::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton){
         moving = false;
-        x = bpoint.x();        
-        y = bpoint.y();        
         //emit reDraw();
-        emit Draw(x,y);
+        emit Draw(bpoint.x(),bpoint.y());
     }
+}
+
+void BlockScheme::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    moving = false;
+    if(moving){
+        bpoint = event->pos().toPoint();
+        x = x - bpoint.x();
+        y = y - bpoint.y();
+        emit Draw(bpoint.x(),bpoint.y());
+    }
+}
+
+void BlockScheme::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+
+   qDebug()<< "event->pos().x()" << event->pos().x();
+   qDebug()<< "isUnderMouse() "<< this->isUnderMouse();
+   qDebug()<< "isActive() "<< this->isActive();
+
+
+
+    emit deleteItem(this);
 }
