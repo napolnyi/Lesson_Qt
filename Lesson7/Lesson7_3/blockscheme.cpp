@@ -17,9 +17,9 @@ void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     painter->setBrush(brush);
     if (geometry == Geometry::RECTANGLE) painter->drawRect(x, y, 200, 100);
     if (geometry == Geometry::ELLIPS) painter->drawEllipse(x, y, 200, 100);
-    QPointF starPoints [10] = {QPointF(x,y-80), QPointF(x+25,y-35), QPointF(x+75,y-25), QPointF(x+40,y+10),
-                               QPointF(x+50,y+60), QPointF(x,y+40), QPointF(x-50,y+60), QPointF(x-40,y+10),
-                               QPointF(x-75,y-25), QPointF(x-25,y-35)
+    QPointF starPoints [10] = {QPointF(x+75,y), QPointF(x+100,y+45), QPointF(x+150,y+55), QPointF(x+115,y+90),
+                               QPointF(x+125,y+140), QPointF(x+75,y+120), QPointF(x+25,y+140), QPointF(x+35,y+90),
+                               QPointF(x,y+55), QPointF(x+50,y+45)
                                };
     if (geometry == Geometry::STAR) painter->drawPolygon(starPoints,10);
     Q_UNUSED(option);
@@ -30,7 +30,7 @@ void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 QRectF BlockScheme::boundingRect() const
 {
 
-    return QRectF(x-800, y-800, 1600, 1600);
+    return QRectF(x, y, 200, 200);
 
 }
 
@@ -57,13 +57,8 @@ void BlockScheme::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void BlockScheme::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    moving = false;
-    if(moving){
-        bpoint = event->pos().toPoint();
-        x = x - bpoint.x();
-        y = y - bpoint.y();
-        emit Draw(bpoint.x(),bpoint.y());
-    }
+    bpoint = event->pos().toPoint();
+    this->setPos(mapToScene(bpoint.x(),bpoint.y()));
 }
 
 void BlockScheme::hoverMoveEvent(QGraphicsSceneHoverEvent *event)

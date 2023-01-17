@@ -6,6 +6,7 @@
 #include <QGraphicsView>
 #include <QBrush>
 #include <QVector>
+#include <QMouseEvent>
 
 
 #include "blockscheme.h"
@@ -19,10 +20,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    void mousePressEvent (QMouseEvent* event) override;
+    void mouseMoveEvent (QMouseEvent* event) override;
+    void mouseReleaseEvent (QMouseEvent* event) override;
+
 
 private:
     QGraphicsScene *scene;
     QVector <BlockScheme*> bscheme;
+    bool moving;
+    QGraphicsItem *item;
+    int x = 0;
+    int y = 0;
 
 private slots:
     void reDraw();
