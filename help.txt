@@ -1,0 +1,3 @@
+ctrl+s - Save as
+ctrl+n - Create a new document
+ctrl+q - Exit
