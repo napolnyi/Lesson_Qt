@@ -29,46 +29,7 @@ void BlockScheme::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 QRectF BlockScheme::boundingRect() const
 {
-
     return QRectF(x, y, 200, 200);
-
 }
 
-void BlockScheme::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton){
-        moving = true;
-        bpoint = event->pos().toPoint();
-    }
-    if (event->button() == Qt::RightButton && event->HoverMove){
-        qDebug()<<"Maus" << sender();
-        emit deleteItem(this);
-    }
-}
 
-void BlockScheme::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton){
-        moving = false;
-        //emit reDraw();
-        emit Draw(bpoint.x(),bpoint.y());
-    }
-}
-
-void BlockScheme::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    bpoint = event->pos().toPoint();
-    this->setPos(mapToScene(bpoint.x(),bpoint.y()));
-}
-
-void BlockScheme::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
-{
-
-   qDebug()<< "event->pos().x()" << event->pos().x();
-   qDebug()<< "isUnderMouse() "<< this->isUnderMouse();
-   qDebug()<< "isActive() "<< this->isActive();
-
-
-
-    emit deleteItem(this);
-}

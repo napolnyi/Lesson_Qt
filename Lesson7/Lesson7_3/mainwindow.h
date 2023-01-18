@@ -7,8 +7,8 @@
 #include <QBrush>
 #include <QVector>
 #include <QMouseEvent>
-
-
+#include <QEnterEvent>
+#include <QGraphicsSceneHoverEvent>
 #include "blockscheme.h"
 
 
@@ -21,23 +21,12 @@ public:
     ~MainWindow();
 
 protected:
-    void mousePressEvent (QMouseEvent* event) override;
-    void mouseMoveEvent (QMouseEvent* event) override;
-    void mouseReleaseEvent (QMouseEvent* event) override;
-
+    void mousePressEvent (QMouseEvent *event) override;
+    void mouseMoveEvent (QMouseEvent *event) override;
 
 private:
     QGraphicsScene *scene;
     QVector <BlockScheme*> bscheme;
-    bool moving;
-    QGraphicsItem *item;
-    int x = 0;
-    int y = 0;
-
-private slots:
-    void reDraw();
-    void randomColor();
-    void Draw(int x, int y);
-    void deleteItem(BlockScheme*);
+    QGraphicsItem *item = nullptr;
 };
 #endif // MAINWINDOW_H
