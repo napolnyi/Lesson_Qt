@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     alignLeftIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-align-left.png"));
     alignRightIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-align-right.png"));
     alignCenterlIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-align-center.png"));
+    dateIcon = QIcon::fromTheme("",QIcon(":/Imadge/icon-data.png"));
 
     addMenu();
 
@@ -152,6 +153,7 @@ void MainWindow::delMenu()
     formatToolBar->removeAction(alignLeftAction);
     formatToolBar->removeAction(alignCenterAction);
     formatToolBar->removeAction(alignRightAction);
+    formatToolBar->removeAction(dateAction);
 }
 
 void MainWindow::activWindow()
@@ -252,6 +254,13 @@ void MainWindow::addMenu()
     alignRightAction = formatToolBar->addAction(alignRightIcon,tr("Align right"));
     connect(alignRightAction,SIGNAL(triggered()),this, SLOT (alignRight()));
 
+    formatToolBar->addSeparator();
+
+    dateAction = formatToolBar->addAction(dateIcon,tr("Insert date"));
+    connect(dateAction,SIGNAL(triggered()),this, SLOT (dateInsert()));
+
+
+
 }
 
 
@@ -324,4 +333,13 @@ void MainWindow::alignCenter()
 {
     activWindow();
     plainTextEdit->document()->setDefaultTextOption(QTextOption(Qt::AlignCenter));
+}
+
+void MainWindow::dateInsert()
+{
+    QDate date = QDate::currentDate();
+    //QString datestring = QString::number(date.year()) + "." + QString::number(date.month()) + "." + QString::number(date.day());
+    //QString datestring = QDate::toString(dd.mm.yyyy,date);
+    plainTextEdit->insertPlainText(datestring);
+
 }

@@ -23,6 +23,7 @@
 #include <QToolButton>
 #include <QFontDialog>
 #include <QFont>
+#include <QDate>
 
 
 
@@ -52,6 +53,7 @@ private slots:
     void alignLeft();
     void alignRight();
     void alignCenter();
+    void dateInsert();
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -107,6 +109,7 @@ private:
     QAction *alignLeftAction;
     QAction *alignRightAction;
     QAction *alignCenterAction;
+    QAction *dateAction;
 
     QIcon copyIcon;
     QIcon pasteIcon;
@@ -114,6 +117,7 @@ private:
     QIcon alignLeftIcon;
     QIcon alignRightIcon;
     QIcon alignCenterlIcon;
+    QIcon dateIcon;
 
     QTextCharFormat format;
 
