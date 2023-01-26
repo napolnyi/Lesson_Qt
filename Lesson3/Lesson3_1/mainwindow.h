@@ -23,7 +23,7 @@
 #include <QToolButton>
 #include <QFontDialog>
 #include <QFont>
-#include <QDate>
+#include <QDateTime>
 
 
 

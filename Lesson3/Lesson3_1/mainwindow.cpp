@@ -333,13 +333,14 @@ void MainWindow::alignCenter()
 {
     activWindow();
     plainTextEdit->document()->setDefaultTextOption(QTextOption(Qt::AlignCenter));
+
+
+
 }
 
 void MainWindow::dateInsert()
 {
-    QDate date = QDate::currentDate();
-    //QString datestring = QString::number(date.year()) + "." + QString::number(date.month()) + "." + QString::number(date.day());
-    //QString datestring = QDate::toString(dd.mm.yyyy,date);
-    plainTextEdit->insertPlainText(datestring);
+    QDateTime datetime = QDateTime::currentDateTime();
+    plainTextEdit->insertPlainText(datetime.toString());
 
 }
