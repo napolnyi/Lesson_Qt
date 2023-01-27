@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     fileviewwidget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    threadfinder.cpp
 
 HEADERS += \
     fileviewwidget.h \
-    mainwindow.h
+    mainwindow.h \
+    threadfinder.h
 
 FORMS += \
     mainwindow.ui

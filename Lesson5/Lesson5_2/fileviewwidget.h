@@ -7,6 +7,8 @@
 #include <QFileSystemModel>
 #include <QLineEdit>
 #include <QLabel>
+#include <QPushButton>
+#include "threadfinder.h"
 
 
 
@@ -24,10 +26,16 @@ private:
     QFileSystemModel *model;
     QString currentPath;
     QLineEdit *path;
-    QLabel *namePath;
+    QLineEdit *findPathLineEdit;
+    QLabel *namePath,*findPath;
+    QPushButton *findButton;
+    ThreadFinder *thread;
+    QItemSelectionModel *select;
 
 private slots:
     void renamePath();
+    void findDirFile();
+    void isFind(QString pathFind);
 
 };
 
