@@ -69,6 +69,7 @@ void FileViewWidget::isFind(QString pathFind)
         select->setCurrentIndex(index,QItemSelectionModel::Select);
         path->setText(pathFind);
     }
+
 }
 
 

@@ -12,23 +12,17 @@ ThreadFinder::ThreadFinder(QString name, QObject *parent) :QThread(parent)
 
 void ThreadFinder::run()
 {
-
-
     QDir dir(QDir::root());
     dir.setFilter(QDir::Files | QDir::Dirs );
     QFileInfoList list = dir.entryInfoList();
+        for (int i = 0; i < list.count(); i++){
 
-    for (QFileInfoList::iterator iter = list.begin(),end = list.end(); iter < end; iter++){
-
-        if (iter->fileName() == name){
-
-            emit isFind(iter->absoluteFilePath());
-            break;
+            if (list.at(i).fileName() == name){
+                emit isFind(list.at(i).absoluteFilePath());
+                break;
+            }
+            else if (i == (list.count()-1)) {
+                emit isFind("файл не найден");
+            }
         }
-        else if(iter == end) emit isFind("файл не найден");
-
-    }
-
-
-
 }
