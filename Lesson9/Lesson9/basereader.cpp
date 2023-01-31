@@ -2,15 +2,35 @@
 
 BaseReader::BaseReader(QObject *parent) : QObject(parent)
 {
+    file = new QFile(":/base/base.txt",this);
 
 }
 
-void BaseReader::loadBase()
+BaseReader::~BaseReader()
 {
-    QFile file (":/base/base.txt");
-    if (file.open(QIODevice::ReadOnly)) {
+    if (file) file->close();
+}
 
-        QTextStream stream (&file);
+void BaseReader::readBase()
+{
+
+    if (file->open(QIODevice::ReadOnly)) {
+
+        QTextStream stream (file);
+        QString str = stream.read(file->size());
+        file->close();
+    }
+
+}
+
+void BaseReader::saveBase(Task *currentTask)
+{
+    if (file->open(QIODevice::WriteOnly | QIODevice::Append)){
+        QTextStream stream (file);
+        QString str;
+        stream << currentTask->name + currentTask->date.toString() + str.number(currentTask->progress);
+        file->close();
+
     }
 
 }
