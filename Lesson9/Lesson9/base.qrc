@@ -1,5 +1,0 @@
-<RCC>
-    <qresource prefix="/base">
-        <file>base.txt</file>
-    </qresource>
-</RCC>

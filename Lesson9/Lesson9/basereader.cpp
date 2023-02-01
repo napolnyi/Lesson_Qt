@@ -1,9 +1,9 @@
 #include "basereader.h"
+#include <QDebug>
 
 BaseReader::BaseReader(QObject *parent) : QObject(parent)
 {
-    file = new QFile(":/base/base.txt",this);
-
+    file = new QFile(":/Base/base.txt",this);
 }
 
 BaseReader::~BaseReader()
@@ -23,12 +23,14 @@ void BaseReader::readBase()
 
 }
 
-void BaseReader::saveBase(Task *currentTask)
+void BaseReader::saveBase(QString name, QString date, QString progress)
 {
-    if (file->open(QIODevice::WriteOnly | QIODevice::Append)){
+    bool f = file->open(QIODevice::Append);
+    qDebug()<<f;
+    if (f){
+        qDebug()<<"!!!!!!";
         QTextStream stream (file);
-        QString str;
-        stream << currentTask->name + currentTask->date.toString() + str.number(currentTask->progress);
+        stream << name + "|" +  date +  "|" + progress << "\n";
         file->close();
 
     }

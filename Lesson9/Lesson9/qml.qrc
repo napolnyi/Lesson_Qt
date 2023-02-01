@@ -7,4 +7,7 @@
         <file>start-button.png</file>
         <file>start-button-pressed.png</file>
     </qresource>
+    <qresource prefix="/Base">
+        <file>base.txt</file>
+    </qresource>
 </RCC>

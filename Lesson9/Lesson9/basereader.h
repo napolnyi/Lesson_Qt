@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QFile>
 #include <QTextStream>
-#include <QDate>
+
 
 class BaseReader : public QObject
 {
@@ -13,19 +13,12 @@ class BaseReader : public QObject
 private:
     QFile *file;
 
-    struct Task
-    {
-        QString name;
-        QDate date;
-        int progress;
-    };
-
 public:
     explicit BaseReader(QObject *parent = nullptr);
     virtual ~BaseReader();
 
     void readBase();
-    void saveBase(Task *currentTask);
+    Q_INVOKABLE void saveBase(QString name, QString date, QString progress);
 
 
 
