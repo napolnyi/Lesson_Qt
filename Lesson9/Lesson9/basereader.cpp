@@ -3,7 +3,7 @@
 
 BaseReader::BaseReader(QObject *parent) : QObject(parent)
 {
-    file = new QFile(":/Base/base.txt",this);
+    file = new QFile("./base.txt",this);
 }
 
 BaseReader::~BaseReader()
@@ -25,8 +25,11 @@ void BaseReader::readBase()
 
 void BaseReader::saveBase(QString name, QString date, QString progress)
 {
+
+
     bool f = file->open(QIODevice::Append);
     qDebug()<<f;
+    qDebug()<<file->errorString();
     if (f){
         qDebug()<<"!!!!!!";
         QTextStream stream (file);

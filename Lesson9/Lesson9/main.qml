@@ -6,12 +6,16 @@ import QtQuick.Layouts 1.3
 
 
 
+
 Window {
     id:root
     width: 800
     height: 150
     visible: true
     title: qsTr("Planner")
+
+
+
 
 
     BaseReader{
@@ -157,6 +161,7 @@ Window {
                         _base.saveBase(_tFld_1.text, _tFld_2.text, _tFld_3.text )
 
                     }
+
                 }
             }
 
