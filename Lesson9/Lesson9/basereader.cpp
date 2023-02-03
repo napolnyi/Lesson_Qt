@@ -26,16 +26,10 @@ void BaseReader::readBase()
 void BaseReader::saveBase(QString name, QString date, QString progress)
 {
 
-
-    bool f = file->open(QIODevice::Append);
-    qDebug()<<f;
-    qDebug()<<file->errorString();
-    if (f){
+    if (file->open(QIODevice::Append)){
         qDebug()<<"!!!!!!";
         QTextStream stream (file);
         stream << name + "|" +  date +  "|" + progress << "\n";
         file->close();
-
     }
-
 }
